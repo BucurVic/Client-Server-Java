@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Inot.Client.gui.LoginController">
+   <children>
+      <Label layoutX="61.0" layoutY="82.0" text="Username : " />
+      <TextField fx:id="fieldUsername" layoutX="125.0" layoutY="78.0" promptText="User" />
+      <Label layoutX="65.0" layoutY="113.0" text="Password :" />
+      <PasswordField fx:id="fieldPassword" layoutX="125.0" layoutY="109.0" promptText="Pass" />
+      <Button layoutX="177.0" layoutY="180.0" mnemonicParsing="false" onAction="#handleLogin" text="Login" />
+      <Button layoutX="350.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+   </children>
+</AnchorPane>

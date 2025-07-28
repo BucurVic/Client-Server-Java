@@ -1,0 +1,10 @@
+rootProject.name = 'lab7'
+include 'InotClient'
+include 'InotModel'
+include 'InotNetworking'
+include 'InotPersistence'
+include 'InotServer'
+include 'InotServices'
+
+
+include 'RestServices'

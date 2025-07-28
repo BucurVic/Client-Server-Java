@@ -1,0 +1,40 @@
+.proba-form {
+    margin: 2rem auto;
+    max-width: 500px;
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.proba-form label {
+    display: block;
+    margin-bottom: 1rem;
+    color: #444;
+    font-weight: 500;
+}
+
+.proba-form input[type="text"],
+.proba-form input[type="number"] {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.proba-form input[type="submit"] {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    width: 100%;
+    background-color: #4b6cb7;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.proba-form input[type="submit"]:hover {
+    background-color: #3a54a1;
+}

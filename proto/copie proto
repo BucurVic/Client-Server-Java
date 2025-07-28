@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package proto;
+
+message Inscriere{
+    int64 id=1;
+    int64 idProba=2;
+    string numeParticipant=3;
+    int32 varstaParticipant=4;
+}
+
+message PersoanaOficiu{
+    int64 id=1;
+    string username=2;
+    string password=3;
+    string location=4;
+}
+
+message Proba{
+    int64 id=1;
+    string distanta=2;
+    string stil=3;
+    int32 nrParticipantiInscrisi=4;
+}
+
+message Request {
+  enum RequestType {
+    UNKNOWN=0;
+    LOGIN = 1;
+    LOGOUT = 2;
+    INSCRIERE_ADDED = 3;
+    GET_ALL_PROBA = 4;
+    GET_PERSOANA_BY_USERNAME=5;
+    GET_ALL_INSCRIERE=6;
+    FIND_PROBA_BY_ID=7;
+  }
+
+  RequestType type = 1;
+  oneof payload{
+    PersoanaOficiu persoana = 2;
+    Inscriere inscriere = 3;
+    Proba proba = 4;
+    string username = 5;
+    int64 idProba = 6;
+  }
+}
+
+message Response {
+  enum ResponseType {
+    UNKNOWN=0;
+    OK = 1;
+    ERROR = 2;
+    GET_ALL_INSCRIERE=3;
+    GET_ALL_PROBA=4;
+    GET_PERSOANA_BY_USERNAME=5;
+    INSCRIERE_ADDED=6;
+  }
+
+  ResponseType type = 1;
+
+  string error = 2;
+  repeated Inscriere inscrieri = 3;
+  repeated Proba probe = 4;
+  PersoanaOficiu persoanaOficiu=5;
+  Inscriere inscriere = 6;
+  Proba proba = 7;
+}

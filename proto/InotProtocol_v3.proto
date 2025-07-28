@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package proto;
+
+option java_package = "Inot.Network.proto";
+option java_outer_classname = "InotProtobufs";
+//option java_multiple_files = true;
+
+message PersoanaOficiu {
+  int64 id = 1;
+  string username = 2;
+  string password = 3;
+  string location = 4;
+}
+
+message Inscriere {
+  int64 id = 1;
+  int64 idProba = 2;
+  string numeParticipant = 3;
+  int32 varstaParticipant = 4;
+}
+
+message Proba {
+  int64 id = 1;
+  string distanta = 2;
+  string stil = 3;
+  int32 nrParticipantiInscrisi = 4;
+}
+
+message Empty {}
+
+message ErrorResponse {
+  string error = 1;
+}
+
+message InscriereList {
+  repeated Inscriere inscrieri = 1;
+}
+
+message ProbaList {
+  repeated Proba probe = 1;
+}
+
+message PersoanaOficiuResponse {
+  PersoanaOficiu persoana = 1;
+}
+
+service InotService {
+
+  rpc Login(PersoanaOficiu) returns (Empty);
+  rpc Logout(PersoanaOficiu) returns (Empty);
+
+  rpc AddInscriere(Inscriere) returns (Empty);
+  rpc GetAllInscrieri(Empty) returns (InscriereList);
+
+  rpc GetAllProbe(Empty) returns (ProbaList);
+  rpc FindProbaById(Proba) returns (Proba);
+
+  rpc FindPersoanaByUsername(PersoanaOficiu) returns (PersoanaOficiuResponse);
+
+  rpc SubscribeForUpdates(Empty) returns (stream Inscriere);
+}

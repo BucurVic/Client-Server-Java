@@ -1,0 +1,1 @@
+export const INOT_PROBE_BASE_URL='http://localhost:8080/inot/probe';

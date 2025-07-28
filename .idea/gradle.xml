@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/InotClient" />
+            <option value="$PROJECT_DIR$/InotModel" />
+            <option value="$PROJECT_DIR$/InotNetworking" />
+            <option value="$PROJECT_DIR$/InotPersistence" />
+            <option value="$PROJECT_DIR$/InotServer" />
+            <option value="$PROJECT_DIR$/InotServices" />
+            <option value="$PROJECT_DIR$/RestServices" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
