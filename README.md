@@ -1,94 +1,124 @@
-# 🏊‍♂️ Swimming Contest Registration System
+# Registration System For Swimming Contest
 
 ## 📘 Overview
 
-This application is used by the organizers of a national swimming contest to register participants from various local offices. It is implemented in two interchangeable versions:
+This system helps organize and manage a **national swimming contest**, enabling local offices to:
 
-- **Java server + C# clients**
-- **C# server + Java clients**
+- Register participants
+- View and search events
+- Monitor live participant data
 
-Communication between clients and the server is achieved using **multithreaded TCP sockets**, with optional **gRPC** integration for modern and efficient RPC-based interaction.
+The project supports **multiple client-server configurations**:
+
+- **Java server** + **C# clients**
+- **C# server** + **Java clients**
+- **React Web client** (with REST API and JWT authentication)
+
+Communication is primarily handled via **TCP multithreaded sockets**, with support for:
+- **gRPC** for high-performance RPC
+- **Custom Protocol Buffers sync** for lightweight structured data exchange
 
 ---
 
-## 🎯 Core Features
+## 🎯 Features
 
-### 🔐 Login
-- Office staff log into the system.
-- After login, a new window displays all available swimming events (distance & style), including the current number of registered participants per event.
+### 🔐 Authentication & Authorization
+- JWT-based login system
+- Secure role-based access for office staff
+- Sessions maintained via tokens (used by both REST and Web client)
 
-### 🔍 Search Participants
-- Staff can search for participants registered in a specific event.
-- Displayed info: participant's **name**, **age**, and **number of events** registered for.
-
-### ➕ Register Participant
-- A participant can be registered for multiple events.
-- Staff enter the participant’s name, age, and select the events.
-- All other clients across the country receive **real-time updates** automatically.
+### 🏁 Event & Participant Management
+- **View all events** (with current participant counts)
+- **Search participants** by event
+- **Register new participants** (multi-event registration allowed)
+- **Real-time updates**: all clients reflect new registrations immediately
 
 ### 🚪 Logout
-- The user logs out from the system securely.
+- Ends the current session and revokes access
 
 ---
 
-## 🏗️ Architecture
+## 🧱 Architecture
 
-- **Client-Server architecture** using **TCP socket-based communication** (multithreaded)
-- **Relational database** for persistent data storage
-- Follows the **MVC** pattern with the following layers:
-  - **Model:** domain entities (e.g., Participant, Event, Registration)
-  - **Repository:** handles database operations using SQL or ORM
-  - **Service:** contains the business logic
-  - **Controller/UI:** interfaces with the service layer
-- Connection settings stored in a **config file**
-- Logging implemented in the repository layer
+### 🧭 Pattern
+Follows a **layered MVC architecture**:
+- **Model**: Participant, Event, Registration, etc.
+- **Repository**: SQL/ORM-based data access
+- **Service**: Application logic
+- **Controller/UI**: Handles user interactions and triggers services
+
+### 🖧 Communication
+- **TCP Sockets (Multithreaded)**: Core message passing
+- **REST API**: For React web client
+- **gRPC Services**: For efficient RPCs
+- **Custom Protobuf Sync**: For lightweight updates between clients
+
+### 💾 Persistence
+- Relational database used across all versions
+- Data loaded, saved, and synced via repositories
 
 ---
 
-## 🔧 Technologies Used
+## 🖥️ Technologies
 
-### 🖥️ Back-End
+### 🧩 Back-End
 
-| Feature               | Java Version                | C# Version                   |
-|-----------------------|-----------------------------|------------------------------|
-| ORM / DB Access       | JDBC / Hibernate            | ADO.NET / Entity Framework   |
-| Network Communication | Java Sockets                | .NET Sockets                 |
-| Configuration         | Java `.properties` file     | `appsettings.json`           |
-| Logging               | SLF4J / Logback             | Serilog / NLog               |
+| Feature                 | Java                     | C#                           |
+|-------------------------|--------------------------|-------------------------------|
+| ORM / DB Access         | JDBC / Hibernate         | ADO.NET / Entity Framework   |
+| Network Communication   | Java Sockets             | .NET Sockets                 |
+| REST API                | Spring Boot (if used)    | ASP.NET Core Web API         |
+| gRPC / Protobuf         | grpc-java                | grpc-dotnet                  |
+| Configuration           | `.properties` files      | `appsettings.json`           |
+| Logging                 | SLF4J / Logback          | Serilog / NLog               |
+| Authentication          | JWT via Spring Security  | JWT via ASP.NET Auth         |
 
 ### 🎨 Front-End
 
-| Feature         | Java Client         | C# Client                   |
-|-----------------|---------------------|-----------------------------|
-| UI Framework    | JavaFX              | Windows Forms / WPF         |
-| UI Pattern      | MVC-based Controller| MVVM / MVC                  |
+| Feature         | Java Client         | C# Client             | Web Client       |
+|-----------------|---------------------|------------------------|------------------|
+| UI Framework    | JavaFX              | Windows Forms / WPF   | React + Vite     |
+| UI Pattern      | MVC                 | MVVM / MVC            | REST API Driven  |
+| Auth Flow       | Manual login logic  | Manual login logic    | JWT login flow   |
 
 ---
 
 ## 🌐 Networking
 
-- Low-level **TCP sockets** used for communication
-- Server handles **multiple simultaneous clients** via threads
-- **Real-time client notification** ensures UI updates automatically when changes occur (e.g., participant registered)
+- Multi-threaded TCP server
+- Each client handled in a separate thread
+- Updates about participant registration pushed to all clients
+- Lightweight **Protocol Buffers** used for custom sync layer
+- **gRPC** supports structured, versioned, and language-agnostic services
 
 ---
 
-## 🔄 gRPC Integration (Bonus)
+## 🔄 gRPC & Protobuf Integration
 
-As a bonus enhancement, **gRPC** is integrated to modernize parts of the communication.
+### ✅ gRPC Highlights
+- Efficient binary RPC via **Protocol Buffers**
+- Shared `.proto` contracts between Java and C#
+- Used for:
+  - Fetching events
+  - Registering participants
+- Enables tight schema versioning & backward compatibility
 
-### ✅ Why gRPC?
+### 🔁 Custom Protobuf Sync (Bonus)
+- Lightweight synchronization using raw protobuf messages
+- Used as an alternative to gRPC when performance or manual control is desired
+- Reduces overhead compared to traditional serialization
 
-- Fast, type-safe remote calls using **Protocol Buffers**
-- Easy interoperability between **Java** and **C#**
-- Better scalability and schema consistency than raw sockets
+---
 
-### 🛠️ Implementation Notes
+## 🚀 Running the System
 
-- `.proto` files define shared services and messages
-- At least two domain entities exposed via gRPC (e.g., `ParticipantService`, `InscriereService`)
-- Server hosts the gRPC services
-- Client consumes those services to:
-  - Retrieve events
-  - Register participants remotely
-- **gRPC complements** the socket-based approach for selected operations
+### 🧪 Local Setup
+
+1. Clone the repository
+2. Launch the **server application** (Java or C#)
+3. Run the **client application** (Java, C#, or Web)
+4. For the React Web Client:
+   ```bash
+   cd react-client
+   npm install
+   npm run dev
